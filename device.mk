@@ -377,6 +377,10 @@ PRODUCT_PACKAGES += \
     sensortest
 endif
 
+# Shims
+PRODUCT_PACKAGES += \
+    libcutils_shim
+
 # TimeKeep
 PRODUCT_PACKAGES += \
     timekeep
