@@ -34,6 +34,10 @@ PRODUCT_MODEL := Nexus 5X
 PRODUCT_MANUFACTURER := LGE
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
+# Vendor security patch level
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.lineage.build.vendor_security_patch=2018-11-01
+
 #PRODUCT_COPY_FILES += device/lge/bullhead/fstab.aosp_bullhead:root/fstab.bullhead
 
 $(call inherit-product, device/lge/bullhead/device.mk)
