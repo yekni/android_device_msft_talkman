@@ -61,13 +61,16 @@
 /system/bin/subsystem_ramdump
 /system/bin/test_diag
 /system/bin/thermal-engine
-/system/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
-/system/etc/acdbdata/MTP/MTP_General_cal.acdb
-/system/etc/acdbdata/MTP/MTP_Global_cal.acdb
-/system/etc/acdbdata/MTP/MTP_Handset_cal.acdb
-/system/etc/acdbdata/MTP/MTP_Hdmi_cal.acdb
-/system/etc/acdbdata/MTP/MTP_Headset_cal.acdb
-/system/etc/acdbdata/MTP/MTP_Speaker_cal.acdb
+
+# Audio ACDB - from LGE g811 20i
+system/etc/acdbdata/Bluetooth_cal.acdb
+system/etc/acdbdata/General_cal.acdb
+system/etc/acdbdata/Global_cal.acdb
+system/etc/acdbdata/Handset_cal.acdb
+system/etc/acdbdata/Hdmi_cal.acdb
+system/etc/acdbdata/Headset_cal.acdb
+system/etc/acdbdata/Speaker_cal.acdb
+
 /system/etc/cne/profile.txt
 /system/etc/data/dsi_config.xml
 /system/etc/data/netmgr_config.xml
