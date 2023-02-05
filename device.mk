@@ -242,6 +242,7 @@ PRODUCT_PACKAGES += \
     fstab.bullhead \
     ueventd.bullhead.rc \
     init.recovery.bullhead.rc \
+    init.bullhead.sensorhub.rc \
     init.bullhead.ramdump.rc \
     init.bullhead.fp.rc \
     init.bullhead.diag.rc \
