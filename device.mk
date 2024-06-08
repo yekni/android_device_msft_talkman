@@ -20,8 +20,8 @@
 # Everything in this directory will become public
 
 # Boot animation
-TARGET_SCREEN_HEIGHT := 1920
-TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 2560
+TARGET_SCREEN_WIDTH := 1440
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
@@ -82,6 +82,13 @@ PRODUCT_COPY_FILES += \
 # APEX
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_SYSTEM)/etc/swcodec/ld.config.txt
+
+# FM
+PRODUCT_PACKAGES += \
+     FM2 \
+     libqcomfm_jni \
+     qcom.fmradio
+
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -178,20 +185,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.dumpstate@1.0-service.bullhead
 
-# Fingerprint HIDL implementation
-PRODUCT_PACKAGES += \
-    fingerprint.bullhead \
-    android.hardware.biometrics.fingerprint@2.1-service
-
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
    fs_config_files
 
-# Gatekeeper HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service \
-    gatekeeper.msm8992
+    android.hardware.gatekeeper@1.0-service.software
 
 # General support
 PRODUCT_PACKAGES += \

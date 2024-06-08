@@ -29,9 +29,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 PRODUCT_NAME := lineage_bullhead
 PRODUCT_DEVICE := bullhead
-PRODUCT_BRAND := google
-PRODUCT_MODEL := Nexus 5X
-PRODUCT_MANUFACTURER := LGE
+PRODUCT_BRAND := MicrosoftMobile
+PRODUCT_MODEL := Lumia 950
+PRODUCT_MANUFACTURER := MicrosoftMobile
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
 # Vendor security patch level
