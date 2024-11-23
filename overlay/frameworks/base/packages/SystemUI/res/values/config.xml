@@ -25,7 +25,7 @@
     <integer translatable="false" name="config_search_panel_view_vibration_duration">10</integer>
 
     <!-- Doze: does this device support STATE_DOZE and STATE_DOZE_SUSPEND?  -->
-    <bool name="doze_display_state_supported">true</bool>
+    <bool name="doze_display_state_supported">false</bool>
 
     <!-- Control whether status bar should distinguish HSPA data icon form UMTS
         data icon on devices -->
@@ -36,5 +36,10 @@
 
     <!-- Doze: can we assume the pickup sensor includes a proximity check? -->
     <bool name="doze_pickup_performs_proximity_check">true</bool>
+
+    <!-- The default tiles to display in QuickSettings -->
+    <string name="quick_settings_tiles_default" translatable="false">
+        wifi,bt,nfc,rotation,location,cell,dnd,airplane,flashlight
+    </string>
 </resources>
 

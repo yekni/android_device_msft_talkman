@@ -61,7 +61,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bullhead/proprietary/subsystem_ramdump:system/bin/subsystem_ramdump:qcom \
     vendor/qcom/bullhead/proprietary/test_diag:system/bin/test_diag:qcom \
     vendor/qcom/bullhead/proprietary/thermal-engine:system/bin/thermal-engine:qcom \
-    vendor/qcom/bullhead/proprietary/time_daemon:system/bin/time_daemon:qcom \
     vendor/qcom/bullhead/proprietary/MTP_Bluetooth_cal.acdb:system/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb:qcom \
     vendor/qcom/bullhead/proprietary/MTP_General_cal.acdb:system/etc/acdbdata/MTP/MTP_General_cal.acdb:qcom \
     vendor/qcom/bullhead/proprietary/MTP_Global_cal.acdb:system/etc/acdbdata/MTP/MTP_Global_cal.acdb:qcom \

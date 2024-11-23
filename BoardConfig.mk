@@ -66,6 +66,12 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 
+# Kernel - prebuilt
+TARGET_FORCE_PREBUILT_KERNEL := true
+ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
+endif
+
 # APEX
 TARGET_FLATTEN_APEX := true
 
@@ -117,9 +123,6 @@ ifeq ($(HOST_OS),linux)
     endif
   endif
 endif
-
-# Fingerprint
-#BOARD_HAS_FINGERPRINT_FPC := true
 
 # GPS
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
@@ -174,19 +177,14 @@ BOARD_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy
 SELINUX_IGNORE_NEVERALLOWS := true
 
-# Sensors
-TARGET_USES_NANOHUB_SENSORHAL := true
-NANOHUB_SENSORHAL_LID_STATE_ENABLED := true
-NANOHUB_SENSORHAL_SENSORLIST := $(DEVICE_PATH)/sensorhal/sensorlist.cpp
-NANOHUB_SENSORHAL_DIRECT_REPORT_ENABLED := true
-TARGET_USES_CHINOOK_SENSORHUB := false
-
 # Shims
 TARGET_LD_SHIM_LIBS := \
     /vendor/bin/ATFWD-daemon|libcutils_shim.so \
     /vendor/bin/cnd|libcutils_shim.so \
     /vendor/lib64/libcne.so|libcutils_shim.so \
     /system/vendor/lib64/libril-qc-qmi-1.so|libaudioclient_shim.so
+#    /vendor/bin/slim_daemon|/vendor/lib64/slim_shim.so
+
 
 # Testing related defines
 BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/bullhead-setup.sh
@@ -205,6 +203,12 @@ BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_AP  := "ap"
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
+
+
+# NFC
+BOARD_NFC_CHIPSET := pn547
+BOARD_NFC_HAL_SUFFIX := msm8992
+BOARD_NFC_DEVICE := "/dev/pn547"
 
 ifeq ($(TARGET_PRODUCT),aosp_bullhead_svelte)
 BOARD_KERNEL_CMDLINE += mem=1024M maxcpus=2

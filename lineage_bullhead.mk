@@ -29,9 +29,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 PRODUCT_NAME := lineage_bullhead
 PRODUCT_DEVICE := bullhead
-PRODUCT_BRAND := MicrosoftMobile
+PRODUCT_BRAND := Microsoft
 PRODUCT_MODEL := Lumia 950
-PRODUCT_MANUFACTURER := MicrosoftMobile
+PRODUCT_MANUFACTURER := Microsoft
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
 # Vendor security patch level

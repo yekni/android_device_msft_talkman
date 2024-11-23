@@ -7,7 +7,6 @@ allow init sysfs_lge_handle_panic_param:file rw_file_perms;
 allow init sysfs_usb:file { open read write getattr setattr };
 allow init sysfs_devices_block:dir { search open };
 allow init sysfs_devices_block:file { read write open getattr setattr };
-allow init sysfs_devices_fingerprint:file { read open write getattr setattr };
 allow init sysfs_wlan_fwpath:file { read open write getattr setattr open };
 allow init sysfs_power_management:file { read open write getattr setattr open };
 allow init sysfs_leds:file { read open write getattr setattr open };

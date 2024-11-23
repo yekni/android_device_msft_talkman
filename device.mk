@@ -28,12 +28,13 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+# Display
+TARGET_SCREEN_DENSITY := 564
+
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := xxhdpi
-PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
-
-PRODUCT_CHARACTERISTICS := nosdcard
+PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
+PRODUCT_AAPT_PREBUILT_DPI := xxxhdpi xxhdpi xhdpi hdpi
 
 # Dexpreopt
 WITH_DEXPREOPT := true
@@ -47,7 +48,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.camera.full.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.camera.raw.xml \
-    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.fingerprint.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.wifi.direct.xml \
@@ -71,6 +71,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/android.hardware.nfc.hcef.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.nfc.hcef.xml \
+    frameworks/native/data/etc/com.android.nfc_extras.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.android.nfc_extras.xml  \
     frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.midi.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.verified_boot.xml \
@@ -89,7 +90,9 @@ PRODUCT_PACKAGES += \
      libqcomfm_jni \
      qcom.fmradio
 
-
+#PRODUCT_PACKAGES += \
+#    qmihal
+    
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
@@ -237,9 +240,7 @@ PRODUCT_PACKAGES += \
     fstab.bullhead \
     ueventd.bullhead.rc \
     init.recovery.bullhead.rc \
-    init.bullhead.sensorhub.rc \
     init.bullhead.ramdump.rc \
-    init.bullhead.fp.rc \
     init.bullhead.diag.rc \
     init.bullhead.misc.rc
 
@@ -248,12 +249,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.devstart.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.devstart.sh \
     $(LOCAL_PATH)/rootdir/etc/fstab.bullhead:$(TARGET_COPY_OUT_ROOT)/fstab.bullhead \
     $(LOCAL_PATH)/rootdir/etc/fstab.bullhead:$(TARGET_COPY_OUT_RAMDISK)/fstab.bullhead
+#    $(LOCAL_PATH)/rootdir/etc/init.msm8992.sensor.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.msm8992.sensor.sh
 
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/gpio-keys.kl \
-    $(LOCAL_PATH)/keylayout/qpnp_pon.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/qpnp_pon.kl \
-    $(LOCAL_PATH)/keylayout/uinput-fpc.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/uinput-fpc.kl
+    $(LOCAL_PATH)/keylayout/qpnp_pon.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/qpnp_pon.kl
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
@@ -261,16 +262,14 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.idc:$(TARGET_COPY_OUT_SYSTEM)/usr/idc/synaptics_rmi4_i2c.idc \
-    $(LOCAL_PATH)/keylayout/uinput-fpc.idc:$(TARGET_COPY_OUT_SYSTEM)/usr/idc/uinput-fpc.idc \
-
+    $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.idc:$(TARGET_COPY_OUT_SYSTEM)/usr/idc/synaptics_rmi4_i2c.idc
 # Light HAL
 PRODUCT_PACKAGES += \
     lights.bullhead \
     lights.vts \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
-
+    
 # MBN
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.bullhead.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.bullhead.sh
@@ -299,14 +298,14 @@ PRODUCT_COPY_FILES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
-    libnfc-nci \
-    NfcNci \
+    com.android.nfc_extras \
     Tag \
-    android.hardware.nfc@1.1-service
+    NfcNci
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nci.conf \
-    $(LOCAL_PATH)/nfc/libnfc-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
+    $(LOCAL_PATH)/nfc/libnfc-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf \
+    $(LOCAL_PATH)/nfc/nfcee_access.xml:system/etc/nfcee_access.xml
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS := \
@@ -341,7 +340,8 @@ PRODUCT_PACKAGES += \
     qti_telephony_utils.xml \
     librmnetctl \
     rmnetcli \
-    libaudioclient_shim
+    libaudioclient_shim \
+    slim_shim
 
 PRODUCT_BOOT_JARS += \
     telephony-ext
@@ -351,36 +351,45 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.radio.snapshot_timer=10
 
 # Sensor & activity_recognition HAL
-PRODUCT_PACKAGES += \
-    sensors.bullhead \
-    activity_recognition.bullhead \
-    android.hardware.sensors@1.0-impl \
-    android.hardware.contexthub@1.0-impl.nanohub \
-    android.hardware.contexthub@1.0-service \
-    libsensorndkbridge
+#PRODUCT_PACKAGES += \
+#    sensors.bullhead \
+#    activity_recognition.bullhead \
+#    android.hardware.contexthub@1.0-service \
+#    libsensorndkbridge
 
-ifeq ($(TARGET_USES_CHINOOK_SENSORHUB),true)
-PRODUCT_PACKAGES += \
-    sensortool.bullhead
-else
-PRODUCT_PACKAGES += \
-    nanoapp_cmd
-endif
-
-# Sensor utilities (only for userdebug and eng builds)
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-PRODUCT_PACKAGES += \
-    nanotool \
-    sensortest
-endif
-
+# Sensors
+#PRODUCT_PACKAGES += \
+#    android.hardware.sensors@1.0-impl \
+#    android.hardware.sensors@1.0-service
+#    
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    ro.qc.sdk.sensors.gestures=true \
+#    ro.qcom.ad=1 \
+#    ro.qcom.ad.sensortype=3 \
+#    ro.qcom.ad.calib.data=/system/media/display/calib.cfg
+#
+#
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/sensors/sensor_def_common.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sensor_def_common.conf \
+#    $(LOCAL_PATH)/sensors/sensor_def_variable.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sensor_def_variable.conf \
+#    $(LOCAL_PATH)/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
+#    $(LOCAL_PATH)/sensors/calib.cfg:system/media/display/calib.cfg
+#
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    persist.debug.sensors.hal=e \
+#    debug.qualcomm.sns.daemon=e \
+#    debug.qualcomm.sns.hal=e \
+#    debug.qualcomm.sns.libsensor1=e
+#
+    
 # Shims
 PRODUCT_PACKAGES += \
     libcutils_shim
 
 # TimeKeep
 PRODUCT_PACKAGES += \
-    timekeep
+    timekeep \
+    TimeKeep
 
 # Thermal HAL
 PRODUCT_PACKAGES += \

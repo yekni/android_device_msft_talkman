@@ -62,7 +62,7 @@ persist.sys.disable_rescue=true
 
 # Display
 ro.opengles.version=196610
-ro.sf.lcd_density=420
+ro.sf.lcd_density=564
 persist.hwc.mdpcomp.enable=true
 
 # DRM
@@ -129,8 +129,10 @@ ril.nosim.ecc_list_count=1
 ril.nosim.ecc_list_1=111,113,117,122,125
 persist.radio.redir_party_num=0
 
-# SdcardFs
+#disable FUSE storage on Android 11
 persist.sys.fflag.override.settings_fuse=false
+persist.sys.fuse.passthrough.enable=false
+persist.sys.isolated_storage=false
 
 # Wifi
 wifi.interface=wlan0
