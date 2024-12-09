@@ -1,0 +1,15 @@
+# QMI devices
+/dev/qcril_radio                u:object_r:qcril_radio_device:s_0660
+/vendor/bin/simunlock\.sh       u:object_r:vendor_qmicli_exec:s_0755
+
+# Lumia RIL devices
+/dev/msril                      u:object_r:lumia_ril_device:s_0660
+/dev/cellmux                    u:object_r:lumia_cell_device:s_0660
+/dev/cellusermode              u:object_r:lumia_cell_device:s_0660
+/dev/cellnetmon                u:object_r:lumia_cell_device:s_0660
+
+# RIL Modules
+/vendor/lib64/msril\.sys        u:object_r:vendor_file:s_0644
+/vendor/lib64/cellmux\.sys      u:object_r:vendor_file:s_0644
+/vendor/lib64/cellusermodeinterconnect\.sys    u:object_r:vendor_file:s_0644
+/vendor/lib64/cellnetmon\.sys   u:object_r:vendor_file:s_0644 

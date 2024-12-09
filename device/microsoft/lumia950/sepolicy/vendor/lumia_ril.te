@@ -1,0 +1,49 @@
+type lumia_ril, domain;
+type lumia_ril_device, dev_type;
+type lumia_cell_device, dev_type;
+
+# Allow RIL to access devices
+allow lumia_ril lumia_ril_device:chr_file rw_file_perms;
+allow lumia_ril lumia_cell_device:chr_file rw_file_perms;
+allow lumia_ril qcril_radio_device:chr_file rw_file_perms;
+
+# Allow RIL to communicate with QMI
+allow lumia_ril qmuxd:unix_stream_socket connectto;
+allow lumia_ril qmuxd_socket:dir rw_dir_perms;
+allow lumia_ril qmuxd_socket:sock_file create_file_perms;
+
+# Allow RIL to access radio props
+set_prop(lumia_ril, radio_prop)
+get_prop(lumia_ril, radio_prop)
+
+# Allow access to modem
+allow lumia_ril firmware_file:dir r_dir_perms;
+allow lumia_ril firmware_file:file r_file_perms;
+
+# Allow RIL to load kernel modules
+allow lumia_ril self:capability sys_module;
+allow lumia_ril vendor_file:system module_load;
+
+# Allow RIL to create and manage devices
+allow lumia_ril device:dir { create write add_name remove_name };
+allow lumia_ril device:chr_file { create setattr unlink };
+
+# Allow RIL to communicate with vendor services
+allow lumia_ril vendor_qmicli:unix_stream_socket connectto;
+allow lumia_ril vendor_qmicli_exec:file { read getattr execute };
+
+# Allow RIL to access system services
+allow lumia_ril rild:unix_stream_socket connectto;
+allow lumia_ril system_server:binder { call transfer };
+
+# Allow RIL to manage its own files
+allow lumia_ril vendor_file:file { read write open getattr };
+allow lumia_ril vendor_file:dir { read write open search };
+
+# Allow RIL to create and use sockets
+allow lumia_ril self:socket create_socket_perms_no_ioctl;
+allow lumia_ril self:netlink_socket create_socket_perms_no_ioctl;
+
+# Allow RIL to access proc filesystem
+allow lumia_ril proc:file { read write open getattr };
+allow lumia_ril proc_net:file { read write open getattr }; 

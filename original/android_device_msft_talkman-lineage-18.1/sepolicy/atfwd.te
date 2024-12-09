@@ -1,0 +1,25 @@
+type atfwd, domain;
+type atfwd_exec, exec_type, file_type, vendor_file_type;
+
+# Started by init
+init_daemon_domain(atfwd)
+
+# Creates/Talks to qmuxd via the qmux_radio socket.
+qmux_socket(atfwd);
+
+binder_use(atfwd);
+binder_call(atfwd, servicemanager);
+binder_call(atfwd, system_app);
+
+allow atfwd self:udp_socket create;
+
+allow atfwd atfwd_service:service_manager find;
+
+allow atfwd diag_device:chr_file rw_file_perms;
+
+set_prop(atfwd, radio_atfwd_prop)
+
+allow atfwd sysfs_msm_subsys:dir r_dir_perms;
+allow atfwd sysfs_msm_subsys:lnk_file r_file_perms;
+
+allow atfwd vendor_file:dir r_dir_perms;

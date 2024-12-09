@@ -1,0 +1,50 @@
+allow init tmpfs:lnk_file create_file_perms;
+allow init kernel:system { module_request };
+allow init sysfs_g_android_param:dir search;
+allow init sysfs_g_android_param:file rw_file_perms;
+allow init sysfs_lge_handle_panic_param:dir search;
+allow init sysfs_lge_handle_panic_param:file rw_file_perms;
+allow init sysfs_usb:file { open read write getattr setattr };
+allow init sysfs_devices_block:dir { search open };
+allow init sysfs_devices_block:file { read write open getattr setattr };
+allow init sysfs_wlan_fwpath:file { read open write getattr setattr open };
+allow init sysfs_power_management:file { read open write getattr setattr open };
+allow init sysfs_leds:file { read open write getattr setattr open };
+allow init sysfs_leds:lnk_file r_file_perms;
+allow init sysfs_leds:dir search;
+allow init sysfs_graphics:file { read open write getattr setattr open };
+allow init sysfs_graphics:lnk_file r_file_perms;
+allow init sysfs_graphics:dir search;
+
+# bluetooth permissions grant
+allow init sysfs_rfkill0:dir { search read open };
+allow init sysfs_rfkill0:file { read open write getattr setattr };
+allow init sysfs_rfkill0:lnk_file rw_file_perms;
+
+allow init sysfs:file { setattr getattr };
+
+# allow: write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
+allow init sysfs_msm_subsys:dir { search read open };
+allow init sysfs_msm_subsys:file { read open write getattr setattr };
+allow init sysfs_msm_subsys:lnk_file read;
+
+allow init sysfs_msm_subsys_restart:file { read open write getattr setattr };
+
+allow init sysfs_mmc:dir { search read open };
+allow init sysfs_mmc:file rw_file_perms;
+
+# kgsl
+allow init debugfs_kgsl:dir { search read open relabelfrom };
+allow init debugfs_kgsl:file { read write getattr setattr };
+allow init sysfs_kgsl:dir { search read open relabelfrom };
+allow init sysfs_kgsl:file { read write getattr setattr };
+
+# Allow init to bind mount loader config for media swcodec
+allow init system_file:file mounton;
+
+allow init persist_file:dir mounton;
+allow init firmware_file:dir mounton;
+
+allow init sysfs_rndis:file rw_file_perms;
+
+allow init sysfs_poweroff:file rw_file_perms;

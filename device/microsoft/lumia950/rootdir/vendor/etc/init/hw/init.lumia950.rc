@@ -1,0 +1,85 @@
+on init
+    # Create RIL device nodes
+    mkdir /dev/radio 0770 radio radio
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    
+    # Create QMI device nodes
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    chmod 2770 /dev/socket/qmux_radio
+    chown radio radio /dev/socket/qmux_radio
+
+    # RIL configuration
+    setprop rild.libpath /vendor/lib64/libril-qc-qmi-1.so
+    setprop persist.radio.multisim.config ssss
+    setprop ro.telephony.default_network 9
+    setprop telephony.lteOnCdmaDevice 0
+    setprop persist.vendor.radio.apm_sim_not_pwdn 1
+    setprop persist.vendor.radio.custom_ecc 1
+    setprop persist.vendor.radio.rat_on combine
+    setprop persist.vendor.radio.sib16_support 1
+
+on early-boot
+    # Start QMI services
+    start vendor.qmuxd
+    start vendor.netmgrd
+
+on boot
+    # Load RIL modules in correct order
+    insmod /vendor/lib64/msril.sys
+    insmod /vendor/lib64/cellmux.sys
+    insmod /vendor/lib64/cellusermodeinterconnect.sys
+    insmod /vendor/lib64/cellnetmon.sys
+    
+    # Set permissions for RIL devices
+    chmod 0644 /dev/msril
+    chown radio radio /dev/msril
+    chmod 0644 /dev/cellmux
+    chown radio radio /dev/cellmux
+    chmod 0644 /dev/cellusermode
+    chown radio radio /dev/cellusermode
+    chmod 0644 /dev/cellnetmon
+    chown radio radio /dev/cellnetmon
+
+    # Set permissions for QMI devices
+    chmod 0644 /dev/qcril_radio
+    chown radio radio /dev/qcril_radio
+
+    # Start RIL services
+    start vendor.ril-daemon
+    start vendor.simunlock
+    
+service vendor.qmuxd /vendor/bin/qmuxd
+    class main
+    user radio
+    group radio audio bluetooth gps nfc diag
+    disabled
+    
+service vendor.netmgrd /vendor/bin/netmgrd
+    class main
+    user root
+    group radio system
+    disabled
+    
+service vendor.ril-daemon /vendor/bin/hw/rild
+    class main
+    user radio
+    group radio cache inet misc audio log readproc wakelock
+    capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
+    
+service vendor.simunlock /vendor/bin/simunlock.sh
+    class main
+    user root
+    group root radio
+    oneshot
+    disabled
+
+on property:sys.boot_completed=1
+    # Final RIL initialization
+    write /dev/qcril_radio/init_done 1
+    
+    # Additional RIL setup
+    setprop persist.radio.add_power_save 1
+    setprop persist.radio.snapshot_disabled 1
+    setprop persist.radio.data_ltd_sys_ind 1
+    setprop persist.radio.data_con_rprt 1
+    setprop persist.radio.calls.on.ims 1

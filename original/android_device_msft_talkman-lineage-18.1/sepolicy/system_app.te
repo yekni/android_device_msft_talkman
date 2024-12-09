@@ -1,0 +1,21 @@
+allow system_app time_daemon:unix_stream_socket connectto;
+unix_socket_connect(system_app, cnd, cnd)
+
+allow system_app cne_service:service_manager add;
+
+# allow CNEService to write /data/connectivity
+allow system_app cnd_data_file:dir w_dir_perms;
+# allow CNEService to create profile.txt
+allow system_app cnd_data_file:file create_file_perms;
+
+allow system_app debugfs_kgsl:dir { search read open };
+allow system_app debugfs_kgsl:file { read write getattr setattr };
+
+allow system_app proc_pagetypeinfo:file open;
+allow system_app sysfs_devices_block:dir r_dir_perms;
+allow system_app sysfs_devices_block:file r_file_perms;
+
+allow system_app atfwd_service:service_manager add;
+
+allow system_app proc_pagetypeinfo:file r_file_perms;
+allow system_app sysfs_zram:dir search;

@@ -1,0 +1,7 @@
+type vendor_qmicli, domain;
+type vendor_qmicli_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(vendor_qmicli)
+
+# Allow access to qcril radio device
+allow vendor_qmicli qcril_radio_device:chr_file rw_file_perms; 

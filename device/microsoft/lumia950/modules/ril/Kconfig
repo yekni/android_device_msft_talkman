@@ -1,0 +1,27 @@
+config LUMIA_RIL
+    tristate "Microsoft Lumia RIL Support"
+    depends on ARCH_MSM8994
+    help
+      This enables support for the Radio Interface Layer (RIL) on
+      Microsoft Lumia devices with MSM8994 chipset.
+
+config LUMIA_CELLMUX
+    tristate "Microsoft Lumia Cell Multiplexer"
+    depends on LUMIA_RIL
+    help
+      This enables support for the cellular multiplexer driver
+      on Microsoft Lumia devices.
+
+config LUMIA_CELL_USERMODE
+    tristate "Microsoft Lumia Cell User Mode Interface"
+    depends on LUMIA_RIL
+    help
+      This enables support for the cellular user mode interface
+      on Microsoft Lumia devices.
+
+config LUMIA_CELL_NETMON
+    tristate "Microsoft Lumia Cell Network Monitor"
+    depends on LUMIA_RIL
+    help
+      This enables support for the cellular network monitoring
+      on Microsoft Lumia devices. 

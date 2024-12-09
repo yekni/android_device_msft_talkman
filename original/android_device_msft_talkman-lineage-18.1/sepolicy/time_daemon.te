@@ -1,0 +1,28 @@
+# Policies for time daemon
+type time_daemon, domain;
+type time_daemon_exec, exec_type, file_type, vendor_file_type;
+type time_data_file, file_type, data_file_type, core_data_file_type;
+
+# Make transition to its own time_daemon domain from init
+init_daemon_domain(time_daemon)
+
+allow time_daemon self:capability { setuid setgid sys_time };
+allow time_daemon self:socket create_socket_perms;
+allowxperm time_daemon self:socket ioctl msm_sock_ipc_ioctls;
+
+#allow time_daemon time_data_file:dir w_dir_perms;
+#allow time_daemon time_data_file:file create_file_perms;
+
+allow time_daemon smem_log_device:chr_file rw_file_perms;
+
+allow time_daemon rtc_device:chr_file r_file_perms;
+
+allow time_daemon sysfs_msm_subsys:dir r_dir_perms;
+allow time_daemon sysfs_msm_subsys:file r_file_perms;
+allow time_daemon sysfs_msm_subsys:lnk_file { read open };
+
+qmux_socket(time_daemon)
+
+allow time_daemon vendor_file:dir r_dir_perms;
+
+allow time_daemon system_data_file:file r_file_perms;
